@@ -44,35 +44,37 @@ class Board:
 def random_point(size):
     """
     """
-    print(randint(0, size - 1))
+    # print(randint(0, size - 1))
     return randint(0, size - 1)
 
 
 def populate_board(size):
     """
     """
-    point_x = random_point(size)
-    point_y = random_point(size)
+    # point_x = random_point(size)
+    # point_y = random_point(size)
+    # return point_x
+    # return point_y
 
 def new_game():
     """
     
     """
 
-    # size = int(input("No. of row and Columns = "))
-    size = 5
-    # num_ships = int(input("no. of ships = "))
-    num_ships = 2 
+    size = int(input("No. of Rows and Columns = "))
+    num_ships = int(input("No. of Ships = "))
+
     print("-"*15) 
     print(f"Board size: {size}. Number of ships: {num_ships}")
     computer_game = Board(size, num_ships, "computer", type="computer")
     computer_game.print()
-    # point_x = random_point(size)
-    # point_y = random_point(size)
-    # new_ship = computer_game.add_ship(point_x, point_y)  
-    populate_board(size)
-    
-    
+    while len(computer_game.ships) < num_ships:
+        point_x = random_point(size)
+        point_y = random_point(size)
+        computer_game.add_ship(point_x, point_y)
+    # else:
+    #     print("loop done")
+
 
 new_game()
 
