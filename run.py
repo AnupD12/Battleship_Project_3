@@ -16,6 +16,7 @@ class Board:
         self.type = type
         self.guesses = []
         self.ships = []
+        self.hits = []
 
     def print(self):
         for row in self.board:
@@ -27,9 +28,12 @@ class Board:
 
         if (x, y) in self.ships:
             self.board[x][y] = "*"
+            self.hits.append((x, y))
+            print("Hit")
             return "Hit"
 
         else:
+            print("Miss")
             return "Miss"
 
     def add_ship(self, x, y, type="computer"):
@@ -43,18 +47,56 @@ class Board:
 
 def random_point(size):
     """
+    Function to create a random number based on the size of the board
     """
     # print(randint(0, size - 1))
     return randint(0, size - 1)
 
 
-def populate_board(size):
+def populate_board(board):
     """
     """
-    # point_x = random_point(size)
-    # point_y = random_point(size)
-    # return point_x
-    # return point_y
+    # size = int(input("No. of Rows and Columns = "))
+    # num_ships = int(input("No. of Ships = "))
+ 
+    while len(board.ships) < board.num_ships:
+        point_x = random_point(board.size)
+        point_y = random_point(board.size)
+        board.add_ship(point_x, point_y)
+
+    print(f"{board.type}'s board")
+    board.print()      
+
+
+
+
+def make_guess(board):
+    """
+    """
+    if board.guesses != board.ships and board.type == "computer":
+        guess_x = int(input("Guess x point = "))
+        guess_y = int(input("Guess y point = "))
+        board.guess(guess_x, guess_y)
+        populate_board(board)
+    else:
+        guess_x1 = random_point(board.size)
+        guess_y1 = random_point(board.size)
+        board.guess(guess_x1, guess_y1)
+        populate_board(board)
+
+
+def play_game(computer_game, player_game):
+    """ 
+    """
+    while len(computer_game.hits) < computer_game.num_ships:
+        make_guess(computer_game)
+    else:
+        print("Player Wins")
+    
+    while len(player_game.hits) < player_game.num_ships:
+        make_guess(player_game)
+    else:
+        print("Computer Wins")
 
 def new_game():
     """
@@ -62,18 +104,19 @@ def new_game():
     """
 
     size = int(input("No. of Rows and Columns = "))
-    num_ships = int(input("No. of Ships = "))
+    num_ships = int(input("No. of Ships = ")) 
+    hits = 0
 
     print("-"*15) 
     print(f"Board size: {size}. Number of ships: {num_ships}")
     computer_game = Board(size, num_ships, "computer", type="computer")
-    computer_game.print()
-    while len(computer_game.ships) < num_ships:
-        point_x = random_point(size)
-        point_y = random_point(size)
-        computer_game.add_ship(point_x, point_y)
-    # else:
-    #     print("loop done")
+    player_game = Board(size, num_ships, "player", type="player")
+    populate_board(computer_game)
+    print("-"*15)
+    populate_board(player_game)
+    play_game(computer_game, player_game)
+    
+        
 
 
 new_game()
