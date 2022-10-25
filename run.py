@@ -50,16 +50,13 @@ def random_point(size):
     """
     Function to create a random number based on the size of the board
     """
-    # print(randint(0, size - 1))
     return randint(0, size - 1)
 
 
 def populate_board(board):
     """
+    Function to populate the screen with both player's and computer's board
     """
-    # size = int(input("No. of Rows and Columns = "))
-    # num_ships = int(input("No. of Ships = "))
- 
     while len(board.ships) < board.num_ships:
         point_x = random_point(board.size)
         point_y = random_point(board.size)
@@ -71,19 +68,22 @@ def populate_board(board):
 
 def make_guess(board):
     """
+    Function to make a guess for both the computer and player and then append it to the Guesses array and re-populate the board to the screen  
     """
+    flag = False
     if board.guesses != board.ships and board.type == "computer":
         guess_x = int(input("Guess x point = "))
         guess_y = int(input("Guess y point = "))
         board.guess(guess_x, guess_y)
         populate_board(board)
     else:
-        guess_x1 = random_point(board.size)
-        guess_y1 = random_point(board.size)
-        if (guess_x1, guess_y1) not in board.guesses:
-            board.guess(guess_x1, guess_y1)
-            populate_board(board)
-
+        while (flag == False):
+            guess_x1 = random_point(board.size)
+            guess_y1 = random_point(board.size)
+            if (guess_x1, guess_y1) not in board.guesses:
+                board.guess(guess_x1, guess_y1)
+                populate_board(board)
+                flag = True
 
 def play_game(computer_game, player_game):
     """ 
@@ -99,7 +99,8 @@ def play_game(computer_game, player_game):
     
 def new_game():
     """
-    
+    Function starts a new game, asks and sets the board size and number of ships on 
+    both the player's and computer's board
     """
 
     size = int(input("No. of Rows and Columns = "))
