@@ -90,14 +90,15 @@ def play_game(computer_game, player_game):
     """
     while len(computer_game.hits) < computer_game.num_ships:
         make_guess(computer_game)
-    else:
-        print("Player Wins")
-    
-    while len(player_game.hits) < player_game.num_ships:
         make_guess(player_game)
-    else:
-        print("Computer Wins")
+        if len(computer_game.hits) == computer_game.num_ships:
+            print("player wins")
+        elif len(player_game.hits) == player_game.num_ships:
+            print("computer wins")
+    
+    
 
+    
 def new_game():
     """
     
