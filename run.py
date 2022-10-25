@@ -45,6 +45,7 @@ class Board:
                 self.board[x][y] = "@"
         print(self.ships)
 
+
 def random_point(size):
     """
     Function to create a random number based on the size of the board
@@ -68,8 +69,6 @@ def populate_board(board):
     board.print()      
 
 
-
-
 def make_guess(board):
     """
     """
@@ -81,8 +80,9 @@ def make_guess(board):
     else:
         guess_x1 = random_point(board.size)
         guess_y1 = random_point(board.size)
-        board.guess(guess_x1, guess_y1)
-        populate_board(board)
+        if (guess_x1, guess_y1) not in board.guesses:
+            board.guess(guess_x1, guess_y1)
+            populate_board(board)
 
 
 def play_game(computer_game, player_game):
@@ -97,8 +97,6 @@ def play_game(computer_game, player_game):
             print("computer wins")
     
     
-
-    
 def new_game():
     """
     
@@ -106,7 +104,6 @@ def new_game():
 
     size = int(input("No. of Rows and Columns = "))
     num_ships = int(input("No. of Ships = ")) 
-    hits = 0
 
     print("-"*15) 
     print(f"Board size: {size}. Number of ships: {num_ships}")
@@ -118,8 +115,6 @@ def new_game():
     play_game(computer_game, player_game)
     
         
-
-
 new_game()
 
 
